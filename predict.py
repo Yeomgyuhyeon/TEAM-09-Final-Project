@@ -1,18 +1,12 @@
 from ultralytics import YOLO
 
-# 학습된 이미지 분류 모델
-model = YOLO("runs/tree_classifier/weights/best.pt")
+if __name__ == "__main__":
 
-# 새로운 이미지 분류
-results = model.predict(
-    source="test.jpg",
-    imgsz=224
-)
+    model = YOLO("runs/detect/runs/tree_detector/weights/best.pt")
 
-for result in results:
-    class_id = result.probs.top1
-    class_name = result.names[class_id]
-    confidence = result.probs.top1conf.item()
-
-    print("분류 결과:", class_name)
-    print(f"신뢰도: {confidence:.2%}")
+    model.predict(
+        source="sample.jpg",
+        conf=0.25,
+        save=True,
+        show=True
+    )
